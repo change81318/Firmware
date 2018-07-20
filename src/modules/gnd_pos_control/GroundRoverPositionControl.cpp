@@ -461,8 +461,8 @@ GroundRoverPositionControl::task_main()
 					_gnd_pos_ctrl_status.xtrack_error = _gnd_control.crosstrack_error();
 
 					matrix::Vector2f curr_wp((float)_pos_sp_triplet.current.lat, (float)_pos_sp_triplet.current.lon);
-					_gnd_pos_ctrl_status.wp_dist = get_distance_to_next_waypoint(current_position(0), current_position(1), curr_wp(0),
-								       curr_wp(1));
+					_gnd_pos_ctrl_status.wp_dist = get_distance_to_next_waypoint((double)current_position(0), (double)current_position(1),
+								       (double)curr_wp(0), (double)curr_wp(1));
 
 					gnd_pos_ctrl_status_publish();
 				}
@@ -479,27 +479,27 @@ GroundRoverPositionControl::task_main()
 	_control_task = -1;
 }
 
-void
+int
 GroundRoverPositionControl::task_main_trampoline(int argc, char *argv[])
 {
 	gnd_control::g_control = new GroundRoverPositionControl();
 
 	if (gnd_control::g_control == nullptr) {
 		warnx("OUT OF MEM");
-		return;
+		return -1;
 	}
 
 	/* only returns on exit */
 	gnd_control::g_control->task_main();
 	delete gnd_control::g_control;
 	gnd_control::g_control = nullptr;
+	return 0;
 }
 
 int
 GroundRoverPositionControl::start()
 {
 	ASSERT(_control_task == -1);
-	warn("Starting by marco");
 
 	/* start the task */
 	_control_task = px4_task_spawn_cmd("gnd_pos_ctrl",
@@ -508,7 +508,6 @@ GroundRoverPositionControl::start()
 					   1700,
 					   (px4_main_t)&GroundRoverPositionControl::task_main_trampoline,
 					   nullptr);
-	warn("done");
 
 	if (_control_task < 0) {
 		warn("task start failed");

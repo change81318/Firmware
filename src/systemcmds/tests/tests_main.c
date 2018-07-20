@@ -93,8 +93,9 @@ const struct {
 	/* external tests */
 	{"commander",		commander_tests_main,	0},
 	{"controllib",		controllib_test_main,	0},
+#ifndef __PX4_NUTTX
 	{"mavlink",		mavlink_tests_main,	0},
-	{"mc_pos_control",	mc_pos_control_tests_main,	0},
+#endif
 	{"sf0x",		sf0x_tests_main,	0},
 	{"uorb",		uorb_tests_main,	0},
 	{"hysteresis",		test_hysteresis,	0},
@@ -113,6 +114,10 @@ const struct {
 	{"jig_voltages",	test_jig_voltages,	OPT_NOALLTEST},
 	{"mathlib",		test_mathlib,	0},
 	{"matrix",		test_matrix,	0},
+	{"microbench_hrt",		test_microbench_hrt,	0},
+	{"microbench_math",		test_microbench_math,	0},
+	{"microbench_matrix",		test_microbench_matrix,	0},
+	{"microbench_uorb",		test_microbench_uorb,	0},
 	{"mount",		test_mount,	OPT_NOJIGTEST | OPT_NOALLTEST},
 	{"param",		test_param,	0},
 	{"parameters",	test_parameters,	0},
@@ -126,6 +131,8 @@ const struct {
 	{"uart_loopback",	test_uart_loopback,	OPT_NOJIGTEST | OPT_NOALLTEST},
 	{"uart_send",		test_uart_send,	OPT_NOJIGTEST | OPT_NOALLTEST},
 	{"versioning",		test_versioning,	0},
+	{"ctlmath",		test_controlmath, 0},
+	{"smoothz", 	test_smooth_z, 0},
 	{NULL,			NULL, 		0}
 };
 

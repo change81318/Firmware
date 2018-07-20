@@ -147,6 +147,7 @@
 #define PX4_SPIDEV_ICM_20602         PX4_MK_SPI_SEL(PX4_SPI_BUS_SENSORS, 11)
 #define PX4_SPIDEV_BMI055_ACC        PX4_MK_SPI_SEL(PX4_SPI_BUS_SENSORS, 12)
 #define PX4_SPIDEV_BMI055_GYR        PX4_MK_SPI_SEL(PX4_SPI_BUS_SENSORS, 13)
+#define PX4_SPIDEV_MPU2              PX4_MK_SPI_SEL(PX4_SPI_BUS_SENSORS, 14)
 
 /* onboard MS5611 and FRAM are both on bus SPI2
  * spi_dev_e:SPIDEV_FLASH has the value 2 and is used in the NuttX ramtron driver
@@ -272,7 +273,7 @@
 #define GPIO_PERIPH_3V3_EN           (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_SET|GPIO_PORTC|GPIO_PIN5)
 /* for R12, this signal is active high */
 #define GPIO_SBUS_INV                (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_SET|GPIO_PORTC|GPIO_PIN13)
-#define INVERT_RC_INPUT(_invert_true) px4_arch_gpiowrite(GPIO_SBUS_INV, _invert_true)
+#define BOARD_INVERT_RC_INPUT(_invert_true, _na) px4_arch_gpiowrite(GPIO_SBUS_INV, _invert_true)
 
 #define GPIO_SPEKTRUM_PWR_EN         (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTE|GPIO_PIN4)
 
